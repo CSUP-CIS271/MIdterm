@@ -37,13 +37,15 @@ public class Book implements Comparable<Book>{
     }
 
     public String toString(Book b){
-      return b.getTitle()+" written by: "+b.getFirstName()+" "+b.getLastName();
+      return "\""+b.getTitle()+"\" written by: "+b.getFirstName()+" "+b.getLastName();
     }
 
+    @Override
     public String toString(){
-      return title+" written by: "+authorFName+" "+authorLName;
+      return "\""+title+"\" written by: "+authorFName+" "+authorLName;
     }
 
+    @Override
     public int compareTo(Book other){
       if(this.authorLName.compareTo(other.getLastName())==0)
         return this.authorFName.compareTo(other.getFirstName());

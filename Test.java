@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Test{
   private final static String FILE = "library.csv";
-  private static String delim = "----------------\n";
+  private final static String DELIM = "----------------\n";
   private static Scanner c = new Scanner(System.in);
 
   public static void main(String[] args) throws IOException{
@@ -20,7 +20,7 @@ public class Test{
     }
     fr.close();
     //say hello and start
-    System.out.println(delim);
+    System.out.println(DELIM);
     System.out.println("Welcome to your library\n");
     choice(li);
   }//end main
@@ -28,7 +28,7 @@ public class Test{
   public static void choice(ArrayList<Book> li){
     int choice = 0;
 
-    System.out.println(delim);
+    System.out.println(DELIM);
     System.out.println("Options:");
     System.out.println("1.  View your books");
     System.out.println("2.  Search library");
@@ -74,13 +74,13 @@ public class Test{
   }//end choice
 
   public static void viewBooks(ArrayList<Book> li){
-    System.out.println("\n"+delim);
+    System.out.println("\n"+DELIM);
     System.out.println("You have these items in your library:");
     Collections.sort(li);
     for(Book b:li){
       System.out.println("\t"+b.toString());
     }
-    System.out.println(delim);
+    System.out.println(DELIM);
     System.out.println("Returning to main options...\n");
     choice(li);
   }//end viewBooks
@@ -88,7 +88,7 @@ public class Test{
   public static void searchBooks(ArrayList<Book> li){
     int option = 0;
     String ln = "";
-    System.out.println(delim);
+    System.out.println(DELIM);
     System.out.println("Search by: ");
     System.out.println("1. Title");
     System.out.println("2. Author's first name");
@@ -106,7 +106,7 @@ public class Test{
       case 1://search by title
         System.out.println("Enter the title of the book: ");
         ln = c.nextLine();
-        System.out.println(delim);
+        System.out.println(DELIM);
         System.out.println("Your search results:");
         for(int i=0;i<li.size();i++){
           if(li.get(i).getTitle().equals(ln)){
@@ -117,7 +117,7 @@ public class Test{
       case 2://search by authorFName
         System.out.println("Enter first name of author to search by: ");
         ln = c.next();
-        System.out.println(delim);
+        System.out.println(DELIM);
         System.out.println("Your search results:");
         for(int i=0;i<li.size();i++){
           if(li.get(i).getFirstName().equals(ln))
@@ -127,7 +127,7 @@ public class Test{
       case 3://search by authorLName
         System.out.println("Enter last name of author to search by: ");
         ln = c.next();
-        System.out.println(delim);
+        System.out.println(DELIM);
         System.out.println("Your search results:");
         for(int i=0;i<li.size();i++){
           if(li.get(i).getLastName().equals(ln))
@@ -137,7 +137,7 @@ public class Test{
       default:
         System.out.println("Option not found. Returning to main options...\n");
     }
-    System.out.println(delim);
+    System.out.println(DELIM);
     System.out.println("Returning to main options...\n");
     choice(li);
   }//end searchBooks
@@ -154,7 +154,7 @@ public class Test{
     System.out.println("You are adding the following record:");
     System.out.println("\t"+b.toString());
     li.add(b);
-    System.out.println(delim);
+    System.out.println(DELIM);
     System.out.println("Returning to main options...\n");
     choice(li);
   }//end addBook
@@ -166,8 +166,21 @@ public class Test{
     ln = c.nextLine();
     for(int i=0;i<li.size();i++){
       if(li.get(i).getTitle().equals(ln)){
-        System.out.println("You are removing: "+li.get(i).toString()+" from your library");
-        li.remove(i);
+        System.out.println("Do you want to remove: \""+li.get(i).toString()+"\" from your library? (y or n)");
+        System.out.print("> ");
+        ln = c.next();
+        ln.toLowerCase();
+        if(ln.equals("y")){
+          System.out.println("Removing "+li.get(i).getTitle());
+          li.remove(i);
+          System.out.println(DELIM);
+          System.out.println("Returning to main options...\n");
+          choice(li);
+        }
+        else {
+          System.out.println("Deletion canceled, returning to main options.");
+          choice(li);
+        }
       }
     }
     System.out.println("Returning to main options...\n");
